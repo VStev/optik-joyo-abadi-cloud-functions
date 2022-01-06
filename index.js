@@ -11,9 +11,6 @@ exports.sendNotificationStatusChangedUser = functions.firestore.document("Transa
   let transactionStatus = transactionDoc.get("status");
   let userDoc = await admin.firestore().doc(`Users/${userUid}`).get();
   let fcmToken = userDoc.get("FCMTOKEN");
-  console.log(transactionStatus);
-  console.log(userUid);
-  console.log(fcmToken);
   
   switch (transactionStatus) {
     case "PROCESSED":{
@@ -42,7 +39,6 @@ exports.sendNotificationStatusChangedUser = functions.firestore.document("Transa
   };
 
   let response = await admin.messaging().send(message);
-  console.log(response);
 });
 
 exports.sendNotificationCreatedAdmin = functions.firestore.document("Transactions/{mUid}").onCreate(async (event) => {
@@ -50,8 +46,6 @@ exports.sendNotificationCreatedAdmin = functions.firestore.document("Transaction
   const content = "Ada transaksi baru, tekan notifikasi untuk mengetahui informasi lebih lanjut";
   let userDoc = await admin.firestore().doc(`Users/TmfFUw0DKTZoChUGjUM6TXa4AUz2`).get();
   let fcmToken = userDoc.get("FCMTOKEN");
-  console.log(fcmToken);
-  
 
   let message = {
     notification: {
@@ -62,7 +56,6 @@ exports.sendNotificationCreatedAdmin = functions.firestore.document("Transaction
   };
 
   let response = await admin.messaging().send(message);
-  console.log(response);
 });
 
 exports.sendNotificationStatusChangeAdmin = functions.firestore.document("Transactions/{mUid}").onUpdate(async (event) => {
@@ -73,7 +66,6 @@ exports.sendNotificationStatusChangeAdmin = functions.firestore.document("Transa
   var content = "Ada transaksi baru, tekan notifikasi untuk mengetahui informasi lebih lanjut";
   let userDoc = await admin.firestore().doc(`Users/TmfFUw0DKTZoChUGjUM6TXa4AUz2`).get();
   let fcmToken = userDoc.get("FCMTOKEN");
-  console.log(fcmToken);
 
   switch (transactionStatus) {
     case "CANCELLED":{
@@ -97,5 +89,4 @@ exports.sendNotificationStatusChangeAdmin = functions.firestore.document("Transa
   };
 
   let response = await admin.messaging().send(message);
-  console.log(response);
 });
