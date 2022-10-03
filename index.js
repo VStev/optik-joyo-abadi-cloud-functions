@@ -50,7 +50,7 @@ exports.sendNotificationCreatedAdmin = functions.firestore.document("Transaction
   const transactionId = event.after.get("transactionId");
   let transactionDoc = await admin.firestore().doc(`Transactions/${transactionId}`).get();
   let transactionStatus = await transactionDoc.get("status");
-  let userDoc = await admin.firestore().doc("Users/JzA2tDbPlsPZCmpSV9yEA7z3t5H2").get();
+  let userDoc = await admin.firestore().doc("Users/admin").get();
   let fcmToken = userDoc.get("FCMTOKEN");
 
   let message = {
@@ -383,7 +383,7 @@ exports.sendNotificationStatusChangeAdmin = functions.firestore.document("Transa
   let transactionStatus = transactionDoc.get("status");
   let title = "Transaksi baru!";
   let content = "Transaksi telah dikirim";
-  let userDoc = await admin.firestore().doc("Users/JzA2tDbPlsPZCmpSV9yEA7z3t5H2").get();
+  let userDoc = await admin.firestore().doc("Users/admin").get();
   let fcmToken = userDoc.get("FCMTOKEN");
 
   switch (transactionStatus) {
